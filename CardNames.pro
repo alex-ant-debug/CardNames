@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     card.cpp \
     game.cpp \
     player.cpp \
-    deberccard.cpp
+    deberccard.cpp \
+    carddeck.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -30,4 +31,5 @@ HEADERS += \
     card.h \
     game.h \
     player.h \
-    deberccard.h
+    deberccard.h \
+    carddeck.h
