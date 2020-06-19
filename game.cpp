@@ -1,42 +1,49 @@
 #include "game.h"
 #include "card.h"
+#include "carddeck.h"
 #include <iostream>
 #include <ctime>
 #include <map>
 
 
-
 Game::Game(unsigned int num)
 {
+    unsigned int possibleNumberOfPlayers = (maxDeckSize - minRank*4 - 1)/numberOfCards;
+
+    if(possibleNumberOfPlayers < num)
+    {
+        std::string str = std::to_string(possibleNumberOfPlayers);
+        throw "Too many players in game. Available count is " + str;
+    }
+
+    desk = cardDeck(minRank);
+
     for(unsigned int i = 0; i < num; i++)
     {
         players.push_back(Player());
-    }
-    for(unsigned int i = 0; i < 52; i++)                                  //заполняем колоду картами
-    {
-        cardDeck.push_back(i);
     }
 }
 
 unsigned int Game::pullOut(void)
 {
-    unsigned int card;
-
-    std::srand(time(0));                                 // автоматическая рандомизация
-    unsigned int randNum = 0 + rand() % cardDeck.size();
-    card = cardDeck.at(randNum);
-    cardDeck.erase(cardDeck.begin()+randNum);
-
-    return card;
+    return desk.pullOut();
 }
 
 void Game::initialDistributionOfCards(void)//начальной раздачи карт
 {
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        for(unsigned int i = 0; i < numberOfCards ; i++)// players[0].cards
+        for(unsigned int i = 0; i < numberOfCards ; i++)
         {
-            players[j].addCard(pullOut());
+            unsigned int card = pullOut();
+            if(card != 100)
+            {
+                players[j].addCard(card);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 }
@@ -83,7 +90,6 @@ void Game::findMaxTerz(void)
 
     if(maxNumberCards == 0)
     {
-        std::cout<<"Not max card";
         return;
     }
 

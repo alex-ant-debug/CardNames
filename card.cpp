@@ -4,6 +4,11 @@ Card::Card(){}
 
 Card::Card(unsigned int card_value)
 {
+    if(card_value > maxValue)
+    {
+     std::string str = std::to_string(maxValue);
+     throw  "Card value greater than maximum value. Maximum value is " + str;
+    }
     this->suit_value = card_value / 13;
     this->rank_value = card_value % 13;
 }

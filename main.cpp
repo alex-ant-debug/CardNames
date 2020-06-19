@@ -19,22 +19,31 @@ int main(int argc, char *argv[])
 //    std::wcscpy(cfi.FaceName, L"Terminal"); // Choose your font
 //    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
-    /*unsigned int arrayTest[4][8] = {{3, 1, 11, 26, 27, 28, 23, 24},
+    unsigned int arrayTest[4][8] = {{3, 1, 11, 26, 27, 28, 23, 24},
                                     {27, 21, 29, 41, 43, 44, 3, 1},
                                     {1, 3, 4, 14, 15, 16, 21, 31},
                                     {9, 31 , 11, 30, 37, 38, 1, 5}};
 
     unsigned int numberPlayers = 4;
-    Game revenge(numberPlayers);
-    revenge.testSetCards(arrayTest, 1);//revenge.initialDistributionOfCards();
-    revenge.printTrumpCard(); //печать козыря
-    //revenge.setTrumpCard();
-    revenge.printPlayersCard();
-    revenge.findMaxTerz();
-    //revenge.findBella();
-    revenge.printScores();*/
+    try
+    {
+        Game revenge(numberPlayers);
+        //revenge.testSetCards(arrayTest, 1);//
+        revenge.initialDistributionOfCards();
+        revenge.setTrumpCard();
+        revenge.printTrumpCard(); //печать козыря
 
-    unsigned int arrayTest1[6] = {7, 8, 9, 10, 11, 12};
+        revenge.printPlayersCard();
+        revenge.findMaxTerz();
+        revenge.findBella();
+        revenge.printScores();
+    }
+    catch (std::string message)
+    {
+        std::cout<<message<<std::endl;
+    }
+
+   /* unsigned int arrayTest1[6] = {7, 8, 9, 10, 11, 12};
     unsigned int arrayTest2[6] = {7, 8, 9, 10, 11, 12};
 
     std::cout<<"\t";
@@ -53,6 +62,6 @@ int main(int argc, char *argv[])
         {
             Card(DebercCard::getMaxCardDeberc(arrayTest1[i], arrayTest2[j], 1)).shortPrint();
         }
-    }
+    }*/
     return a.exec();
 }

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "player.h"
+#include "carddeck.h"
 
 
 class Game
@@ -23,8 +24,8 @@ public:
     void printCards(void);
 
     std::map <unsigned int, std::string>  kindCombinations = {{3,    "Tierce"},
-                                                            {4,    "Deberts"},
-                                                            {2,    "Bella"}};
+                                                              {4,    "Deberts"},
+                                                              {2,    "Bella"}};
 
     static std::map <unsigned int, unsigned int> numberPoints;
 
@@ -32,11 +33,12 @@ public:
 
 protected:
 
-    std::vector <unsigned int> cardDeck;
-
+    cardDeck desk;
+    unsigned int minRank = 4;
     unsigned int numberOfCards = 8;
     unsigned int trumpCard;
     unsigned short trumpSuit;
+    unsigned int  maxDeckSize = 52;
 
 };
 

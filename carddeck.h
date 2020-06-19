@@ -8,12 +8,14 @@
 class cardDeck
 {
 public:
+    cardDeck();
     cardDeck(unsigned int minRank);
     unsigned int pullOut(void);
     void print(void);
 
 protected:
     std::vector <unsigned int> cards;
+    unsigned int minRank;
 
 };
 
