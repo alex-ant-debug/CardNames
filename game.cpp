@@ -48,14 +48,6 @@ void Game::initialDistributionOfCards(void)//начальной раздачи �
     }
 }
 
-void Game::printPlayersCard(void)
-{
-    for(unsigned int j = 0; j < players.size(); j++, std::cout<<std::endl)
-    {
-        players.at(j).printCards();
-    }
-}
-
 void Game::setTrumpCard(void)
 {
     this->trumpCard = pullOut();            //запаминаем вытянутую карту козырь

@@ -13,7 +13,6 @@ public:
 
     unsigned int pullOut(void);
     void initialDistributionOfCards(void);
-    void printPlayersCard(void);
     void setTrumpCard(void);
     void findMaxTerz(void);
     void testSetCards(unsigned int cards[4][8], unsigned short suit);
