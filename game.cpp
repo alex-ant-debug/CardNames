@@ -6,15 +6,26 @@
 #include <map>
 
 
-Game::Game(unsigned int num)
+void Game::checkCountOfPlayers(unsigned int num)
 {
-    unsigned int possibleNumberOfPlayers = (maxDeckSize - minRank*4 - 1)/numberOfCards;
-
+    unsigned int possibleNumberOfPlayers = (maxDeckSize - minRank*4)/numberOfCards;
+    std::string str;
     if(possibleNumberOfPlayers < num)
     {
-        std::string str = std::to_string(possibleNumberOfPlayers);
+        str = std::to_string(possibleNumberOfPlayers);
         throw "Too many players in game. Available count is " + str;
     }
+
+    if(num < 2)
+    {
+        str = "Count players can not be less than two.";
+        throw str;
+    }
+}
+
+Game::Game(unsigned int num)
+{
+    checkCountOfPlayers(num);
 
     desk = cardDeck(minRank);
 
@@ -29,11 +40,27 @@ unsigned int Game::pullOut(void)
     return desk.pullOut();
 }
 
-void Game::initialDistributionOfCards(void)//начальной раздачи карт
+void Game::initialDistributionOfCards(void)
 {
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        for(unsigned int i = 0; i < numberOfCards ; i++)
+        for(unsigned int i = 0; i < 6 ; i++)
+        {
+            unsigned int card = pullOut();
+            if(card == 100)
+            {
+                break;
+            }
+            players[j].addCard(card);
+        }
+    }
+}
+
+void Game::additionalDistributionOfCards(void)
+{
+    for(unsigned int j = 0; j < players.size(); j++)
+    {
+        for(unsigned int i = 0; i < 2 ; i++)
         {
             unsigned int card = pullOut();
             if(card != 100)
@@ -42,6 +69,7 @@ void Game::initialDistributionOfCards(void)//начальной раздачи �
             }
             else
             {
+                players[j].addCard(this->trumpCard);
                 break;
             }
         }
@@ -50,13 +78,13 @@ void Game::initialDistributionOfCards(void)//начальной раздачи �
 
 void Game::setTrumpCard(void)
 {
-    this->trumpCard = pullOut();            //запаминаем вытянутую карту козырь
+    this->trumpCard = pullOut();
     Card trump(this->trumpCard);
-    this->trumpSuit = trump.getSuit();      //масть козыря
+    this->trumpSuit = trump.getSuit();
 
     for(unsigned int i = 0; i < players.size(); i++)
     {
-        players[i].setTrumpSuit(this->trumpSuit);//каждому игроку отправляем масть козыря
+        players[i].setTrumpSuit(this->trumpSuit);
     }
 }
 
@@ -74,7 +102,7 @@ void Game::findMaxTerz(void)
 
     for(unsigned int j = 0; j < numberPlayers; j++)
     {
-        if(maxNumberCards < listTerc[j][0]) //сравниваем по количеству карт
+        if(maxNumberCards < listTerc[j][0])
         {
             maxNumberCards = listTerc[j][0];
         }

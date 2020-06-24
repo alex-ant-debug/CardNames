@@ -11,7 +11,9 @@ class Game
 public:
     Game(unsigned int num);
 
+    void checkCountOfPlayers(unsigned int num);
     unsigned int pullOut(void);
+    void additionalDistributionOfCards(void);
     void initialDistributionOfCards(void);
     void setTrumpCard(void);
     void findMaxTerz(void);
@@ -33,7 +35,7 @@ public:
 protected:
 
     cardDeck desk;
-    unsigned int minRank = 4;
+    unsigned int minRank = 5;
     unsigned int numberOfCards = 8;
     unsigned int trumpCard;
     unsigned short trumpSuit;

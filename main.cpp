@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
         revenge.initialDistributionOfCards();
         revenge.setTrumpCard();
         revenge.printTrumpCard(); //печать козыря
-
+        revenge.additionalDistributionOfCards();//выдача двух карт каждому игроку
         revenge.printCards();
         revenge.findMaxTerz();
         revenge.findBella();
