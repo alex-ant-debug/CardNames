@@ -21,12 +21,17 @@ public:
     void printScore(void);
     void findBella(void);
     void printCards(void);
-    //player move
+    void setSrategy(std::string str);
+    static std::string availableStrategy[3];
+    static std::string defaultStrategy;
+    void printStrategy(void);
 
 protected:
     std::vector <unsigned int> cards;
     unsigned int trumpSuit;
     std::map <std::string, unsigned int> score;
+    std::string strategy;
+
 };
 
 #endif // PLAYER_H

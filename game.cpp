@@ -211,3 +211,19 @@ void Game::printCards(void)
         players[j].printCards();
     }
 }
+
+void Game::setPlayersStrategy(std::vector <std::string> playersStrategies)
+{
+    for(unsigned int j = 0; j < players.size(); j++)
+    {
+        players[j].setSrategy(playersStrategies.at(j));
+    }
+}
+
+void Game::printPlayersStratagy(void)
+{
+    for(unsigned int j = 0; j < players.size(); j++, std::cout<<"\t")
+    {
+        players[j].printStrategy();
+    }
+}

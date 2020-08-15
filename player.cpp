@@ -148,3 +148,27 @@ void Player::printCards(void)
         Card(cards.at(i)).print();
     }
 }
+
+std::string Player::availableStrategy[3] = {"min", "max", "random"};
+std::string Player::defaultStrategy = "min";
+
+void Player::setSrategy(std::string strategy)
+{
+    for(unsigned int i = 0; i < sizeof(availableStrategy)/sizeof(std::string); i++)
+    {
+        if(Player::availableStrategy[i] == strategy)
+        {
+            this->strategy = strategy;
+            break;
+        }
+    }
+    if(this->strategy == "")
+    {
+        this->strategy = defaultStrategy;
+    }
+}
+
+void Player::printStrategy(void)
+{
+    std::cout<<this->strategy;
+}

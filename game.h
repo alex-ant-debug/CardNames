@@ -31,6 +31,8 @@ public:
     static std::map <unsigned int, unsigned int> numberPoints;
 
     std::vector <Player> players;
+    void setPlayersStrategy(std::vector <std::string> playersStrategies);
+    void printPlayersStratagy(void);
 
 protected:
 
