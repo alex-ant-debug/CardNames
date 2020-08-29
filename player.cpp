@@ -1,5 +1,7 @@
 #include "player.h"
 #include "game.h"
+#include <ctime>
+#include <algorithm>
 
 
 Player::Player()
@@ -171,4 +173,67 @@ void Player::setSrategy(std::string strategy)
 void Player::printStrategy(void)
 {
     std::cout<<this->strategy;
+}
+
+unsigned int Player::getRandomCard(void)
+{
+    srand(time(0));
+    auto cardIndex = 0 + rand() % (cards.size()-1);
+    unsigned int cardNumber = cards.at(cardIndex);
+    cards.erase(cards.begin() + cardIndex);
+    return cardNumber;
+}
+
+unsigned int Player::getMaxCard(void)
+{
+    unsigned int numberCards = cards.size();
+    unsigned int max = cards.at(0);
+
+    for(unsigned int i = 1; i < numberCards; i++)
+    {
+        max = Card::getMaxCard(max, cards.at(i), this->trumpSuit);
+    }
+    std::vector<unsigned int>::iterator it = std::find(cards.begin(), cards.end(), max);
+    std::vector<unsigned int>::difference_type index = std::distance(cards.begin(), it);
+    cards.erase(cards.begin() + index);
+    return max;
+}
+
+unsigned int Player::getMinCard(void)
+{
+    unsigned int numberCards = cards.size();
+    unsigned int min = cards.at(0);
+
+    for(unsigned int i = 1; i < numberCards; i++)
+    {
+        min = (Card::getMaxCard(min, cards.at(i), this->trumpSuit) == min)? cards.at(i):  min;
+    }
+    std::vector<unsigned int>::iterator it = std::find(cards.begin(), cards.end(), min);
+    std::vector<unsigned int>::difference_type index = std::distance(cards.begin(), it);
+    cards.erase(cards.begin() + index);
+    return min;
+}
+
+unsigned int Player::getFirstStepCard(void)
+{
+    std::string strategyPlayer[3] = {"min", "max", "random"};
+    unsigned int i;
+    unsigned int card;
+
+    for(i = 0; i < 3; i++)
+    {
+        if(strategyPlayer[i] == this->strategy)
+        {
+            break;
+        }
+    }
+
+    switch (i)
+    {
+    case 0:  {card  = getMinCard();      } break;
+    case 1:  {card  = getMaxCard();      } break;
+    case 2:  {card  = getRandomCard();   } break;
+    default: break;
+    }
+    return card;
 }

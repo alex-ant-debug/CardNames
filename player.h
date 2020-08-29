@@ -25,6 +25,10 @@ public:
     static std::string availableStrategy[3];
     static std::string defaultStrategy;
     void printStrategy(void);
+    unsigned int getRandomCard(void);
+    unsigned int getMaxCard(void);
+    unsigned int getMinCard(void);
+    unsigned int getFirstStepCard(void);
 
 protected:
     std::vector <unsigned int> cards;
