@@ -214,7 +214,7 @@ unsigned int Player::getMinCard(void)
     return min;
 }
 
-unsigned int Player::getFirstStepCard(void)
+unsigned int Player::putFirstStepCard(void)
 {
     std::string strategyPlayer[3] = {"min", "max", "random"};
     unsigned int i;
@@ -236,4 +236,114 @@ unsigned int Player::getFirstStepCard(void)
     default: break;
     }
     return card;
+}
+
+unsigned int Player::nextStepCard(unsigned int previousCard)
+{
+    Card opponentPreviousCard(previousCard);
+    unsigned int suitPreviousCard = opponentPreviousCard.getSuit();
+    unsigned int numberCards = cards.size();
+    unsigned int minCard;
+    bool flagThereIsSuchSuit = false;       //флаг есть такая масть
+    bool flagIsMinimumTrumpCard = false;    //флаг есть минимальный козырь
+
+    for(unsigned int i = 0; i < numberCards; i++)
+    {
+        Card myCards(cards.at(i));
+        if(myCards.getSuit() == suitPreviousCard)   //ищем масть как у предыдущей карты
+        {
+            //если есть такая масть ищем минимальную карту
+            flagThereIsSuchSuit = true;
+            if(i != 0)
+            {
+                minCard = (minCard > cards.at(i))? minCard: cards.at(i);//(Card::getMaxCard(minCard, cards.at(i), this->trumpSuit) == minCard)? cards.at(i):  minCard;
+            }
+            else
+            {
+                minCard = cards.at(0);
+            }
+        }
+    }
+
+    if(flagThereIsSuchSuit)//есть ли у нас карты с такой мастью
+    {
+        //если есть выдаем наименьшую карту
+        return minCard;
+    }
+    else
+    {
+        //если нету ходим наименьшим козырем, если у нас есть козырь
+        unsigned int minTrumpCard;
+        for(unsigned int i = 0; i < numberCards; i++)
+        {
+            Card myTrumpCards(cards.at(i));
+            if(myTrumpCards.getSuit() == trumpSuit)   //сравниваем масти моих карт с козырем
+            {
+                //если есть козырь ищем минимальную козырную карту
+                flagIsMinimumTrumpCard = true;
+                if(i > 0)
+                {
+                    minTrumpCard = (minTrumpCard > cards.at(i))? minTrumpCard: cards.at(i);//(Card::getMaxCard(minTrumpCard, cards.at(i), this->trumpSuit) == minTrumpCard)? cards.at(i):  minTrumpCard;
+                }
+                else
+                {
+                    minTrumpCard = cards.at(i);
+                }
+            }
+        }
+
+        if(flagIsMinimumTrumpCard)
+        {
+            //возвращаем минимальный козырь
+            return minTrumpCard;
+        }
+        else
+        {
+            //если козыря нету возвращаем любую минимальную карту
+            return getMinCard();
+        }
+    }
+}
+
+
+std::vector <unsigned int> Player::getValidCardsForStep(unsigned int previousCard)
+{
+    std::vector <unsigned int> arrayValidCards;
+    unsigned int suitPreviousCard = Card(previousCard).getSuit();
+    unsigned int numberCards = cards.size();
+
+    for(unsigned int i = 0; i < numberCards; i++)//перебераем карты
+    {
+        if(Card(cards.at(i)).getSuit() == suitPreviousCard)   //есть карты с мастью хода?
+        {
+            //если есть такая масть записваем карту
+            arrayValidCards.push_back(cards.at(i));
+        }
+    }
+
+    if(!arrayValidCards.empty())
+    {
+        return arrayValidCards;//возвращаем все карты с мастью хода
+    }
+    else
+    {
+        if(suitPreviousCard == trumpSuit)//масть хода равна масти козыря?
+        {
+            //да равна, возвращаем все карты
+            return cards;
+        }
+        else
+        {
+            //нет
+            for(unsigned int i = 0; i < numberCards; i++)
+            {
+                if(Card(cards.at(i)).getSuit() == trumpSuit)   //сравниваем масти моих карт с козырем
+                {
+                    //если есть козырь записваем козырную карту
+                    arrayValidCards.push_back(cards.at(i));
+                }
+            }
+            return (!arrayValidCards.empty())?  arrayValidCards:  cards;
+        }
+    }
 }

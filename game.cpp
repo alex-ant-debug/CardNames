@@ -227,3 +227,8 @@ void Game::printPlayersStratagy(void)
         players[j].printStrategy();
     }
 }
+
+unsigned int Game::getTrumpCard(void)
+{
+    return this->trumpCard;
+}

@@ -28,7 +28,9 @@ public:
     unsigned int getRandomCard(void);
     unsigned int getMaxCard(void);
     unsigned int getMinCard(void);
-    unsigned int getFirstStepCard(void);
+    unsigned int putFirstStepCard(void);
+    unsigned int nextStepCard(unsigned int previousCard);
+    std::vector <unsigned int> getValidCardsForStep(unsigned int previousCard);
 
 protected:
     std::vector <unsigned int> cards;

@@ -16,12 +16,13 @@ public:
     void additionalDistributionOfCards(void);
     void initialDistributionOfCards(void);
     void setTrumpCard(void);
+    unsigned int getTrumpCard(void);
+    void printTrumpCard(void);
     void findMaxTerz(void);
     void testSetCards(unsigned int cards[4][8], unsigned short suit);
     std::map <std::string, unsigned int> buildCombinationScoreRow(unsigned int numberCard, unsigned int card);
     void printScores(void);
     void findBella(void);
-    void printTrumpCard(void);
     void printCards(void);
 
     std::map <unsigned int, std::string>  kindCombinations = {{3,    "Tierce"},
@@ -33,6 +34,7 @@ public:
     std::vector <Player> players;
     void setPlayersStrategy(std::vector <std::string> playersStrategies);
     void printPlayersStratagy(void);
+
 
 protected:
 
