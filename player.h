@@ -29,8 +29,9 @@ public:
     unsigned int getMaxCard(void);
     unsigned int getMinCard(void);
     unsigned int putFirstStepCard(void);
-    unsigned int nextStepCard(unsigned int previousCard);
+    unsigned int putNextStepCard(unsigned int stepSuit);
     std::vector <unsigned int> getValidCardsForStep(unsigned int previousCard);
+
 
 protected:
     std::vector <unsigned int> cards;
