@@ -175,49 +175,71 @@ void Player::printStrategy(void)
     std::cout<<this->strategy;
 }
 
-unsigned int Player::getRandomCard(void)
+void Player::cardDeletion(unsigned int card)
 {
-    srand(time(0));
-    auto cardIndex = 0 + rand() % (cards.size()-1);
-    unsigned int cardNumber = cards.at(cardIndex);
-    cards.erase(cards.begin() + cardIndex);
-    return cardNumber;
+    std::vector<unsigned int>::iterator it = std::find(cards.begin(), cards.end(), card);
+    std::vector<unsigned int>::difference_type index = std::distance(cards.begin(), it);
+    cards.erase(cards.begin() + index);
 }
 
-unsigned int Player::getMaxCard(void)
+unsigned int Player::getRandomCard(std::vector <unsigned int> availableCards)
 {
-    unsigned int numberCards = cards.size();
-    unsigned int max = cards.at(0);
+    availableCards = (availableCards.empty())? cards: availableCards;
+    unsigned int numberCards = availableCards.size();
+    unsigned int randomCard;
+
+    if(numberCards != 1)
+    {
+        srand(time(0));
+        auto cardIndex = 0 + rand() % (numberCards-1);
+        randomCard = availableCards.at(cardIndex);
+    }
+    else
+    {
+        randomCard = availableCards.at(0);
+    }
+
+    cardDeletion(randomCard);
+    return randomCard;
+}
+
+unsigned int Player::getMaxCard(std::vector <unsigned int> availableCards)
+{
+    availableCards = (availableCards.empty())? cards: availableCards;
+    unsigned int numberCards = availableCards.size();
+    unsigned int max = availableCards.at(0);
 
     for(unsigned int i = 1; i < numberCards; i++)
     {
-        max = Card::getMaxCard(max, cards.at(i), this->trumpSuit);
+        max = Card::getMaxCard(max, availableCards.at(i), this->trumpSuit);
     }
-    std::vector<unsigned int>::iterator it = std::find(cards.begin(), cards.end(), max);
-    std::vector<unsigned int>::difference_type index = std::distance(cards.begin(), it);
-    cards.erase(cards.begin() + index);
+
+    cardDeletion(max);
     return max;
 }
 
-unsigned int Player::getMinCard(void)
+unsigned int Player::getMinCard(std::vector <unsigned int> availableCards)
 {
-    unsigned int numberCards = cards.size();
-    unsigned int min = cards.at(0);
+    availableCards = (availableCards.empty())? cards: availableCards;
+    unsigned int numberCards = availableCards.size();
+    unsigned int min = availableCards.at(0);
 
     for(unsigned int i = 1; i < numberCards; i++)
     {
-        min = (Card::getMaxCard(min, cards.at(i), this->trumpSuit) == min)? cards.at(i):  min;
+        min = (Card::getMaxCard(min, availableCards.at(i), this->trumpSuit) == min)? availableCards.at(i):  min;
     }
-    std::vector<unsigned int>::iterator it = std::find(cards.begin(), cards.end(), min);
-    std::vector<unsigned int>::difference_type index = std::distance(cards.begin(), it);
-    cards.erase(cards.begin() + index);
+
+    cardDeletion(min);
     return min;
 }
 
-unsigned int Player::putFirstStepCard(void)
+
+// тестировать первый шаг
+unsigned int Player::putStepCard(bool isFirstStep, unsigned int stepSuit)
 {
     unsigned int i;
     unsigned int card;
+    std::vector <unsigned int> validCards;
     std::string str = {"Player do not have any card"};
 
     if(cards.empty())
@@ -227,9 +249,22 @@ unsigned int Player::putFirstStepCard(void)
 
     if(cards.size() == 1)
     {
-        unsigned int oneCard = cards.at(0);
+        card = cards.at(0);
         cards.clear();
-        return oneCard;
+        return card;
+    }
+
+    if(!isFirstStep)
+    {
+        validCards = getValidCardsForStep(stepSuit);
+    }
+
+
+    if(validCards.size() == 1)
+    {
+        card = validCards.at(0);
+        cardDeletion(card);
+        return card;
     }
 
     for(i = 0; i < 3; i++)
@@ -242,17 +277,13 @@ unsigned int Player::putFirstStepCard(void)
 
     switch (i)
     {
-    case 0:  {card  = getMinCard();      } break;
-    case 1:  {card  = getMaxCard();      } break;
-    case 2:  {card  = getRandomCard();   } break;
-    default: break;
+        case 0:  {card  = getMinCard(validCards);      } break;
+        case 1:  {card  = getMaxCard(validCards);      } break;
+        case 2:  {card  = getRandomCard(validCards);   } break;
+        default: break;
     }
+
     return card;
-}
-
-unsigned int Player::putNextStepCard(unsigned int stepSuit)
-{
-
 }
 
 

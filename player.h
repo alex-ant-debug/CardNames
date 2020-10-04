@@ -25,11 +25,11 @@ public:
     static std::string availableStrategy[3];
     static std::string defaultStrategy;
     void printStrategy(void);
-    unsigned int getRandomCard(void);
-    unsigned int getMaxCard(void);
-    unsigned int getMinCard(void);
-    unsigned int putFirstStepCard(void);
-    unsigned int putNextStepCard(unsigned int stepSuit);
+    void cardDeletion(unsigned int card);
+    unsigned int getRandomCard(std::vector <unsigned int> availableCards);
+    unsigned int getMaxCard(std::vector <unsigned int> availableCards);
+    unsigned int getMinCard(std::vector <unsigned int> availableCards);
+    unsigned int putStepCard(bool isFirstStep = false, unsigned int stepSuit = 0);
     std::vector <unsigned int> getValidCardsForStep(unsigned int previousCard);
 
 

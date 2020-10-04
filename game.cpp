@@ -168,11 +168,11 @@ void Game::testSetCards(unsigned int cards[4][8], unsigned short trumpCard)
 
     for(unsigned int i = 0; i < players.size(); i++)
     {
-        players[i].setTrumpSuit(this->trumpSuit);//каждому игроку отправляем масть козыря
+        players[i].setTrumpSuit(this->trumpSuit);//send each player a suit of trump
     }
 }
 
-std::map <std::string, unsigned int> Game::buildCombinationScoreRow(unsigned int numberCard, unsigned int card)//подсчет очков
+std::map <std::string, unsigned int> Game::buildCombinationScoreRow(unsigned int numberCard, unsigned int card)//scoring
 {
     std::map <std::string, unsigned int> score;
     std::string strNumberCard = std::to_string(numberCard);
