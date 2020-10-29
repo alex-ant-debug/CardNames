@@ -44,7 +44,7 @@ void Game::initialDistributionOfCards(void)
 {
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        for(unsigned int i = 0; i < 6 ; i++)
+        for(unsigned int i = 0; i < numberOfCards ; i++)
         {
             unsigned int card = pullOut();
             if(card == 100)
@@ -118,7 +118,7 @@ void Game::findMaxTerz(void)
     {
         if(maxNumberCards == listTerc[j][0])
         {
-            //listTerc[j][1] = карта, j = номер игрока
+            //listTerc[j][1] = cards, j = player number
             tercPlayers.insert(std::pair<unsigned int, unsigned int>(listTerc[j][1], j));
         }
     }
@@ -126,16 +126,16 @@ void Game::findMaxTerz(void)
 
 
     auto it = tercPlayers.begin();
-    if(tercPlayers.size() > 1)//если максимальных терцев больше 1
+    if(tercPlayers.size() > 1)//if max terc more then 1
     {
         unsigned int winnerCard = it->first;
 
         for (++it; it != tercPlayers.end(); ++it)
         {
-          winnerCard = Card::getMaxCard(it->first, winnerCard, this->trumpSuit);//ищим наибольшую карту
+          winnerCard = Card::getMaxCard(it->first, winnerCard, this->trumpSuit);//search the greatest card
         }
 
-        it = tercPlayers.find(winnerCard);//ищим игрока по карте
+        it = tercPlayers.find(winnerCard);//player search on the map
     }
 
     if(it != tercPlayers.end())
@@ -160,7 +160,7 @@ void Game::testSetCards(unsigned int cards[4][8], unsigned short trumpCard)
 
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        for(unsigned int i = 0; i < numberOfCards; i++)
+        for(unsigned int i = 0; i < 8; i++)
         {
             players[j].addCard(cards[j][i]);
         }
@@ -231,4 +231,62 @@ void Game::printPlayersStratagy(void)
 unsigned int Game::getTrumpCard(void)
 {
     return this->trumpCard;
+}
+
+void Game::play(void)
+{
+    lastWinnerIndex = 0;
+    std::vector <unsigned int> singleCycleWinners;
+
+    for(unsigned int j = 0; j < numberOfCards; j++)
+    {
+        battlefield.resize(players.size());
+
+        for(unsigned int i = lastWinnerIndex, count = 0; count < players.size(); count++)
+        {
+            unsigned int suitFirstCard;
+            if(i == lastWinnerIndex)
+            {
+                unsigned int firstCard = players[i].putStepCard(true);
+                battlefield[i] = (firstCard);
+                suitFirstCard = Card(firstCard).getSuit();
+            }
+            else
+            {
+                battlefield[i] = (players[i].putStepCard(false, suitFirstCard));
+            }
+            Card(battlefield[i]).print();
+            std::cout<<" = "<<i+1<<"\t";
+
+            i = (i != (players.size()-1))? ++i: 0;
+        }
+
+        searchForWinner();
+        battlefield.clear();
+        std::cout<<"Winer = "<<lastWinnerIndex+1<<std::endl;
+
+        singleCycleWinners.push_back(lastWinnerIndex);
+    }
+}
+
+void Game::searchForWinner(void)
+{
+    unsigned int winnerCard = battlefield.at(0);//first step
+    unsigned int winnerIndex = 0;
+
+    for(unsigned int i = 1; i < battlefield.size(); i++)
+    {
+
+        if((Card(battlefield.at(i)).getSuit() == Card(battlefield.at(lastWinnerIndex)).getSuit())//compare with the suit first step
+                ||(Card(battlefield.at(i)).getSuit() == this->trumpSuit))//compare with the suit of the trump
+        {
+            winnerCard = Card::getMaxCard(battlefield.at(i), winnerCard, this->trumpSuit);//search the greatest card
+            if(battlefield.at(i) == winnerCard)
+            {
+                winnerIndex =  i;//write down the number of the player who won
+            }
+        }
+    }
+
+    lastWinnerIndex = winnerIndex; //number of the player
 }

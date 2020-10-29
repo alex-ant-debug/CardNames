@@ -24,6 +24,8 @@ public:
     void printScores(void);
     void findBella(void);
     void printCards(void);
+    void play(void);
+    void searchForWinner(void);
 
     std::map <unsigned int, std::string>  kindCombinations = {{3,    "Tierce"},
                                                               {4,    "Deberts"},
@@ -34,13 +36,15 @@ public:
     std::vector <Player> players;
     void setPlayersStrategy(std::vector <std::string> playersStrategies);
     void printPlayersStratagy(void);
+    std::vector <unsigned int> battlefield;
+    unsigned int lastWinnerIndex;
 
 
 protected:
 
     cardDeck desk;
     unsigned int minRank = 5;
-    unsigned int numberOfCards = 8;
+    unsigned int numberOfCards = 6;
     unsigned int trumpCard;
     unsigned short trumpSuit;
     unsigned int  maxDeckSize = 52;
