@@ -1,5 +1,6 @@
 #include "player.h"
 #include "game.h"
+#include "card.h"
 #include <ctime>
 #include <algorithm>
 
@@ -92,7 +93,10 @@ void Player::setTrumpSuit(unsigned int suit)
 void Player::setScore(std::map <std::string, unsigned int> score)
 {
     auto it = score.begin();
-    this->score.insert(std::pair<std::string, unsigned int>(it->first, it->second));
+    if(it->second > 0)
+    {
+        this->score.insert(std::pair<std::string, unsigned int>(it->first, it->second));
+    }
 }
 
 void Player::printScore(void)
@@ -101,15 +105,27 @@ void Player::printScore(void)
     {
         for(auto it = this->score.begin(); it != this->score.end(); it++)
         {
-            std::cout<<it->first<<"\t\t";
+            std::cout<<"\t"<<it->first<<"\t\t";
             std::cout<<it->second<<std::endl;
         }
+        std::cout<<"\ttotal: "<<getTotalScore();
     }
     else
     {
-        std::cout<<"None\t\t";
+        std::cout<<"\tNone\t\t";
         std::cout<<0<<std::endl;
     }
+}
+
+unsigned int Player::getTotalScore(void)
+{
+    unsigned int totalScore = 0;
+    for(auto it = this->score.begin(); it != this->score.end(); it++)
+    {
+        totalScore += it->second;
+    }
+
+    return totalScore;
 }
 
 void Player::findBella(void)
@@ -325,4 +341,49 @@ std::vector <unsigned int> Player::getValidCardsForStep(unsigned int stepSuit)
     }
 
     return (!validCards.empty()) ? validCards:  cards;
+}
+
+void Player::setCardBribe(std::vector <unsigned int> card)
+{
+    bribes.push_back(card);
+}
+
+void Player::printBribe(void)
+{
+    unsigned int sizeBribe = bribes.size();
+    if(sizeBribe > 0)
+    {
+        for(unsigned int i = 0; i < sizeBribe; i++,std::cout<<std::endl)
+        {
+            if(i != 0)
+            {
+                std::cout<<"\t\t";
+            }
+            for(unsigned int j = 0; j < bribes[i].size(); j++)
+            {
+                Card(bribes[i][j]).print();
+            }
+        }
+    }
+    else
+    {
+        std::cout<<"0"<<std::endl;
+    }
+}
+
+void Player::doScoring(void)
+{
+    numberPoints = 0;
+    unsigned int countCard = bribes.size();
+    for(unsigned int i = 0; i < countCard; i++)
+    {
+        for(unsigned int j = 0; j < bribes[i].size(); j++)
+        {
+            std::map <std::string, unsigned int> score;
+            Card card(bribes[i][j]);
+            std::string cardView = card.getShortView();
+            score[cardView] = card.getScore(this->trumpSuit);
+            setScore(score);
+        }
+    }
 }

@@ -135,7 +135,7 @@ void Game::findMaxTerz(void)
           winnerCard = Card::getMaxCard(it->first, winnerCard, this->trumpSuit);//search the greatest card
         }
 
-        it = tercPlayers.find(winnerCard);//player search on the map
+        it = tercPlayers.find(winnerCard);//search player's index on the map of players terc
     }
 
     if(it != tercPlayers.end())
@@ -262,6 +262,7 @@ void Game::play(void)
         }
 
         searchForWinner();
+        players[lastWinnerIndex].setCardBribe(battlefield);
         battlefield.clear();
         std::cout<<"Winer = "<<lastWinnerIndex+1<<std::endl;
 
@@ -277,16 +278,33 @@ void Game::searchForWinner(void)
     for(unsigned int i = 1; i < battlefield.size(); i++)
     {
 
-        if((Card(battlefield.at(i)).getSuit() == Card(battlefield.at(lastWinnerIndex)).getSuit())//compare with the suit first step
+        if((Card(battlefield.at(i)).getSuit() == Card(battlefield.at(lastWinnerIndex)).getSuit())//compare with the suit of first step
                 ||(Card(battlefield.at(i)).getSuit() == this->trumpSuit))//compare with the suit of the trump
         {
             winnerCard = Card::getMaxCard(battlefield.at(i), winnerCard, this->trumpSuit);//search the greatest card
             if(battlefield.at(i) == winnerCard)
             {
-                winnerIndex =  i;//write down the number of the player who won
+                winnerIndex =  i;//store the number of the player who won
             }
         }
     }
 
     lastWinnerIndex = winnerIndex; //number of the player
+}
+
+void Game::printBribe(void)
+{
+    for(unsigned int i = 0; i < players.size(); i++)
+    {
+        std::cout<<"Player "<<(i+1)<<" =\t";
+        players[i].printBribe();
+    }
+}
+
+void Game::doScoring(void)
+{
+    for(unsigned int i = 0; i < players.size(); i++)
+    {
+        players[i].doScoring();
+    }
 }

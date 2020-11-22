@@ -10,8 +10,8 @@ public:
     DebercCard(unsigned int card_value);
     unsigned int getRankDeberc(unsigned int trumpSuit);
     static unsigned int getMaxCardDeberc(unsigned int firstCardCode,\
-                                          unsigned int secondCardCode,\
-                                          unsigned short trumpSuit);
+                                         unsigned int secondCardCode,\
+                                         unsigned short trumpSuit);
 
 protected:
                                  //2, 3, 4, 5, 6, 7, 8, 9, 10, B,  Д,  К,  Т

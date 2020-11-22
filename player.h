@@ -31,14 +31,19 @@ public:
     unsigned int getMinCard(std::vector <unsigned int> availableCards);
     unsigned int putStepCard(bool isFirstStep = false, unsigned int stepSuit = 0);
     std::vector <unsigned int> getValidCardsForStep(unsigned int previousCard);
+    void setCardBribe(std::vector <unsigned int> card);
+    void printBribe(void);
+    void doScoring(void);
+    unsigned int getTotalScore(void);
 
 
 protected:
     std::vector <unsigned int> cards;
+    std::vector < std::vector <unsigned int>> bribes;
     unsigned int trumpSuit;
     std::map <std::string, unsigned int> score;
     std::string strategy;
-
+    unsigned int numberPoints;
 };
 
 #endif // PLAYER_H

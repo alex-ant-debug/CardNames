@@ -31,6 +31,11 @@ int main(int argc, char *argv[])
     playerStrategies.push_back("random");
     playerStrategies.push_back("min");
 
+    for(unsigned int i = 0; i < playerStrategies.size(); i++)
+    {
+        std::cout<<"player = "<<playerStrategies.at(i)<<std::endl;
+    }
+
     try
     {
         Game revenge(numberPlayers);
@@ -38,14 +43,18 @@ int main(int argc, char *argv[])
         revenge.initialDistributionOfCards();
         revenge.setTrumpCard();
         revenge.printTrumpCard(); //печать козыря
-        revenge.additionalDistributionOfCards();//выдача двух карт каждому игроку
+        //revenge.additionalDistributionOfCards();//выдача двух карт каждому игроку
         revenge.printCards();
         revenge.findMaxTerz();
         revenge.findBella();
         revenge.printScores();
-
         revenge.setPlayersStrategy(playerStrategies);
-        revenge.printPlayersStratagy();
+        //revenge.printPlayersStratagy();
+        revenge.play();
+        std::cout<<std::endl;
+        revenge.printBribe();
+        revenge.doScoring();
+        revenge.printScores();
     }
     catch (std::string message)
     {

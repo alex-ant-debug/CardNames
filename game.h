@@ -36,8 +36,10 @@ public:
     std::vector <Player> players;
     void setPlayersStrategy(std::vector <std::string> playersStrategies);
     void printPlayersStratagy(void);
+    void printBribe(void);
     std::vector <unsigned int> battlefield;
     unsigned int lastWinnerIndex;
+    void doScoring(void);
 
 
 protected:

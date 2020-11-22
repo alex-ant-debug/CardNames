@@ -15,16 +15,23 @@ Card::Card(unsigned int card_value)
 
 void Card::print(void)
 {
-    //std::cout<<"suit = " <<suits[this->suit_value]<<" "<<"rank = " <<ranks[this->rank_value]<<std::endl;
     shortPrint();
 }
 
+std::string Card::getRankValue(void)
+{
+    return (this->rank_value < 9)? ranks[this->rank_value]: std::string(1, ranks[this->rank_value][0]);
+}
+
+
 void Card::shortPrint(void)
 {
-    std::string rang = (this->rank_value < 9)\
-                     ? ranks[this->rank_value]\
-                     : std::string(1, ranks[this->rank_value][0]);
-    std::cout<<imageSuits[this->suit_value]<<rang<<"  ";
+    std::cout<<imageSuits[this->suit_value]<<getRankValue()<<"  ";
+}
+
+std::string Card::getShortView(void)
+{
+    return imageSuits[this->suit_value]+getRankValue();
 }
 
 unsigned int  Card::getSuit(void)
@@ -71,4 +78,9 @@ unsigned int Card::getMaxCard(unsigned int firstCardCode, unsigned int secondCar
     }
 
     return maxCode;
+}
+
+unsigned int Card::getScore(unsigned short trumpSuit)
+{
+    return (this->suit_value == trumpSuit)? cardPointsTrump[this->rank_value]: cardPoints[this->rank_value];
 }
