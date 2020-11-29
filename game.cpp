@@ -185,12 +185,18 @@ std::map <std::string, unsigned int> Game::buildCombinationScoreRow(unsigned int
 
 void Game::printScores(void)
 {
-    for(unsigned int j = 0; j < players.size(); j++, std::cout<<std::endl)
+    unsigned int max = 0, index = 0;
+    for(unsigned int j = 0; j < players.size(); j++)
     {
-        std::cout<<"Player "<<j+1<<std::endl;
-        std::cout<<"--------"<<std::endl;
-        players[j].printScore();
+        std::cout<<j+1<<':'<<players[j].getTotalScore()<<"\t";
+
+        if(players[j].getTotalScore() > max)
+        {
+            max = players[j].getTotalScore();
+            index = j;
+        }
     }
+    std::cout<<"Winer = "<<index+1<<std::endl;
 }
 
 std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},

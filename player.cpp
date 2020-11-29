@@ -1,6 +1,7 @@
 #include "player.h"
 #include "game.h"
 #include "card.h"
+#include "deberccard.h"
 #include <ctime>
 #include <algorithm>
 
@@ -96,24 +97,6 @@ void Player::setScore(std::map <std::string, unsigned int> score)
     if(it->second > 0)
     {
         this->score.insert(std::pair<std::string, unsigned int>(it->first, it->second));
-    }
-}
-
-void Player::printScore(void)
-{
-    if(!this->score.empty())
-    {
-        for(auto it = this->score.begin(); it != this->score.end(); it++)
-        {
-            std::cout<<"\t"<<it->first<<"\t\t";
-            std::cout<<it->second<<std::endl;
-        }
-        std::cout<<"\ttotal: "<<getTotalScore();
-    }
-    else
-    {
-        std::cout<<"\tNone\t\t";
-        std::cout<<0<<std::endl;
     }
 }
 
@@ -380,7 +363,7 @@ void Player::doScoring(void)
         for(unsigned int j = 0; j < bribes[i].size(); j++)
         {
             std::map <std::string, unsigned int> score;
-            Card card(bribes[i][j]);
+            DebercCard card(bribes[i][j]);
             std::string cardView = card.getShortView();
             score[cardView] = card.getScore(this->trumpSuit);
             setScore(score);

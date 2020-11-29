@@ -79,8 +79,3 @@ unsigned int Card::getMaxCard(unsigned int firstCardCode, unsigned int secondCar
 
     return maxCode;
 }
-
-unsigned int Card::getScore(unsigned short trumpSuit)
-{
-    return (this->suit_value == trumpSuit)? cardPointsTrump[this->rank_value]: cardPoints[this->rank_value];
-}

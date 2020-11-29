@@ -18,7 +18,6 @@ public:
     void combinationSearch(unsigned int *tertsAnsver);
     void setTrumpSuit(unsigned int suit);
     void setScore(std::map <std::string, unsigned int> score);
-    void printScore(void);
     void findBella(void);
     void printCards(void);
     void setSrategy(std::string str);

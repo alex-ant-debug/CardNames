@@ -16,15 +16,10 @@ public:
     unsigned int getRank(void);
     static unsigned int getMaxCard(unsigned int firstCardCode, unsigned int secondCardCode, unsigned short trumpSuit);
     std::string getShortView(void);
-    unsigned int getScore(unsigned short trumpSuit);
     std::string getRankValue(void);
 
     std::string ranks[13] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
     std::string imageSuits[4] = {"\x05", "\x06", "\x04", "\x03"};
-
-    //2, 3, 4, 5, 6, 7, 8, 9, 10, B,  Д,  К,  Т
-    unsigned int cardPoints[13]      = {0, 0, 0, 0, 0, 0, 0, 0, 10, 2,  3,  4,  11};
-    unsigned int cardPointsTrump[13] = {0, 0, 0, 0, 0, 0, 0, 14,10, 20, 3,  4,  11};
 
 
 protected:

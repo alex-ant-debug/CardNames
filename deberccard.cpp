@@ -48,3 +48,8 @@ unsigned int DebercCard::getMaxCardDeberc(unsigned int firstCardCode, \
 
     return maxCode;
 }
+
+unsigned int DebercCard::getScore(unsigned short trumpSuit)
+{
+    return (this->suit_value == trumpSuit)? cardPointsTrump[this->rank_value]: cardPoints[this->rank_value];
+}
