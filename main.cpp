@@ -24,37 +24,12 @@ int main(int argc, char *argv[])
                                     {1, 3, 4, 14, 15, 16, 21, 31},
                                     {9, 31 , 11, 30, 37, 38, 1, 5}};*/
 
-    unsigned int numberPlayers = 4;
-    std::vector <std::string>  playerStrategies;
-    playerStrategies.push_back("min");
-    playerStrategies.push_back("max");
-    playerStrategies.push_back("random");
-    playerStrategies.push_back("min");
-
-    for(unsigned int i = 0; i < playerStrategies.size(); i++)
-    {
-        std::cout<<"player = "<<playerStrategies.at(i)<<std::endl;
-    }
 
     try
     {
+        unsigned int numberPlayers = 4;
         Game revenge(numberPlayers);
-        //revenge.testSetCards(arrayTest, 1);//
-        revenge.initialDistributionOfCards();
-        revenge.setTrumpCard();
-        revenge.printTrumpCard(); //печать козыря
-        //revenge.additionalDistributionOfCards();//выдача двух карт каждому игроку
-        revenge.printCards();
-        revenge.findMaxTerz();
-        revenge.findBella();
-        revenge.printScores();
-        revenge.setPlayersStrategy(playerStrategies);
-        //revenge.printPlayersStratagy();
-        revenge.play();
-        std::cout<<std::endl;
-        revenge.printBribe();
-        revenge.doScoring();
-        revenge.printScores();
+        revenge.runOne();
     }
     catch (std::string message)
     {

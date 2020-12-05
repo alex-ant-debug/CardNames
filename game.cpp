@@ -226,12 +226,14 @@ void Game::setPlayersStrategy(std::vector <std::string> playersStrategies)
     }
 }
 
-void Game::printPlayersStratagy(void)
+void Game::printPlayersStrategy(void)
 {
     for(unsigned int j = 0; j < players.size(); j++, std::cout<<"\t")
     {
+        std::cout<<"player "<<j+1<<" = ";
         players[j].printStrategy();
     }
+    std::cout<<std::endl;
 }
 
 unsigned int Game::getTrumpCard(void)
@@ -264,7 +266,7 @@ void Game::play(void)
             Card(battlefield[i]).print();
             std::cout<<" = "<<i+1<<"\t";
 
-            i = (i != (players.size()-1))? ++i: 0;
+            i = (i != (players.size()-1))? (++i): 0;
         }
 
         searchForWinner();
@@ -274,6 +276,7 @@ void Game::play(void)
 
         singleCycleWinners.push_back(lastWinnerIndex);
     }
+    std::cout<<std::endl;
 }
 
 void Game::searchForWinner(void)
@@ -313,4 +316,28 @@ void Game::doScoring(void)
     {
         players[i].doScoring();
     }
+}
+
+void Game::runOne(void)
+{
+    std::vector <std::string>  playerStrategies;
+    playerStrategies.push_back("min");
+    playerStrategies.push_back("max");
+    playerStrategies.push_back("random");
+    playerStrategies.push_back("min");
+
+    initialDistributionOfCards();
+    setTrumpCard();
+    printTrumpCard();
+    additionalDistributionOfCards();
+    printCards();
+    findMaxTerz();
+    findBella();
+    printScores();
+    setPlayersStrategy(playerStrategies);
+    printPlayersStrategy();
+    play();
+    printBribe();
+    doScoring();
+    printScores();
 }
