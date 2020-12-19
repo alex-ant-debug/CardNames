@@ -41,16 +41,21 @@ public:
     unsigned int lastWinnerIndex;
     void doScoring(void);
     void runOne(void);
+    void runMultiple(void);
+    void reset(void);
+    int getFinalPlayer(void);
 
 
 protected:
 
     cardDeck desk;
-    unsigned int minRank = 5;
-    unsigned int numberOfCards = 6;
+    static const unsigned int minRank = 5;
+    static const unsigned int numberOfCards = 6;
     unsigned int trumpCard;
     unsigned short trumpSuit;
-    unsigned int  maxDeckSize = 52;
+    static const unsigned int  maxDeckSize = 52;
+    std::vector <unsigned int> playersScore;
+    static const unsigned int  finalScoreValue = 200;
 
 };
 

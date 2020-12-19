@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     {
         unsigned int numberPlayers = 4;
         Game revenge(numberPlayers);
-        revenge.runOne();
+        revenge.runMultiple();
     }
     catch (std::string message)
     {

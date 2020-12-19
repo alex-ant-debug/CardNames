@@ -34,6 +34,8 @@ public:
     void printBribe(void);
     void doScoring(void);
     unsigned int getTotalScore(void);
+    void clearBribes(void);
+    void clearScore(void);
 
 
 protected:

@@ -370,3 +370,13 @@ void Player::doScoring(void)
         }
     }
 }
+
+void Player::clearBribes(void)
+{
+    bribes.clear();
+}
+
+void Player::clearScore(void)
+{
+    score.clear();
+}

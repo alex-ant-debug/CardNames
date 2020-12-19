@@ -186,17 +186,26 @@ std::map <std::string, unsigned int> Game::buildCombinationScoreRow(unsigned int
 void Game::printScores(void)
 {
     unsigned int max = 0, index = 0;
+
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        std::cout<<j+1<<':'<<players[j].getTotalScore()<<"\t";
+        unsigned int totalScore = players[j].getTotalScore();
+        std::cout<<j+1<<':'<<totalScore<<"\t";
 
-        if(players[j].getTotalScore() > max)
+        if(totalScore > max)
         {
-            max = players[j].getTotalScore();
+            max = totalScore;
             index = j;
         }
     }
+
     std::cout<<"Winer = "<<index+1<<std::endl;
+
+    for(unsigned int j = 0; j < players.size(); j++)
+    {
+        std::cout<<playersScore[j]<<"\t";                   //print total points players
+    }
+    std::cout<<std::endl;
 }
 
 std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},
@@ -316,6 +325,16 @@ void Game::doScoring(void)
     {
         players[i].doScoring();
     }
+
+    if(playersScore.size() == 0)
+    {
+        playersScore.resize(players.size());
+    }
+
+    for(unsigned int i = 0; i < players.size(); i++)
+    {
+        playersScore[i] += players[i].getTotalScore();
+    }
 }
 
 void Game::runOne(void)
@@ -329,7 +348,7 @@ void Game::runOne(void)
     initialDistributionOfCards();
     setTrumpCard();
     printTrumpCard();
-    additionalDistributionOfCards();
+    //additionalDistributionOfCards();
     printCards();
     findMaxTerz();
     findBella();
@@ -340,4 +359,58 @@ void Game::runOne(void)
     printBribe();
     doScoring();
     printScores();
+}
+
+
+void Game::runMultiple(void)
+{
+    std::vector <std::string>  playerStrategies;
+    playerStrategies.push_back("min");
+    playerStrategies.push_back("max");
+    playerStrategies.push_back("random");
+    playerStrategies.push_back("min");
+
+    do{
+        initialDistributionOfCards();
+        setTrumpCard();
+        printTrumpCard();
+        //additionalDistributionOfCards();
+        printCards();
+        findMaxTerz();
+        findBella();
+        //printScores();
+        setPlayersStrategy(playerStrategies);
+        printPlayersStrategy();
+        play();
+        printBribe();
+        doScoring();
+        printScores();
+        reset();
+    }while(getFinalPlayer() == -1);
+}
+
+void Game::reset(void)
+{
+    desk = cardDeck(minRank);
+    for(unsigned int i = 0; i < players.size(); i++)
+    {
+        players[i].clearScore();
+        players[i].clearBribes();
+    }
+}
+
+int Game::getFinalPlayer(void)
+{
+    unsigned int maxPlayerScore = 0;
+    unsigned int indexMaxPlayer = 0;
+
+    for(unsigned int j = 0; j < players.size(); j++)
+    {
+        if(playersScore[j] > maxPlayerScore)
+        {
+            maxPlayerScore = playersScore[j];
+            indexMaxPlayer = j;
+        }
+    }
+    return (maxPlayerScore >= finalScoreValue)? indexMaxPlayer: -1;
 }

@@ -24,7 +24,7 @@ public:
 
 protected:
 
-    unsigned int maxValue = 51;
+    static const unsigned int maxValue = 51;
     unsigned int suit_value;
     unsigned int rank_value;
     std::string suits[4] = {"Clubs", "Spades", "Diamonds", "Hearts"};
