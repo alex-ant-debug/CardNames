@@ -50,7 +50,7 @@ protected:
 
     cardDeck desk;
     static const unsigned int minRank = 5;
-    static const unsigned int numberOfCards = 6;
+    static const unsigned int numberOfCards = 8;
     unsigned int trumpCard;
     unsigned short trumpSuit;
     static const unsigned int  maxDeckSize = 52;

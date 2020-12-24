@@ -44,7 +44,7 @@ void Game::initialDistributionOfCards(void)
 {
     for(unsigned int j = 0; j < players.size(); j++)
     {
-        for(unsigned int i = 0; i < numberOfCards ; i++)
+        for(unsigned int i = 0; i < numberOfCards-2; i++)
         {
             unsigned int card = pullOut();
             if(card == 100)
@@ -374,7 +374,7 @@ void Game::runMultiple(void)
         initialDistributionOfCards();
         setTrumpCard();
         printTrumpCard();
-        //additionalDistributionOfCards();
+        additionalDistributionOfCards();
         printCards();
         findMaxTerz();
         findBella();

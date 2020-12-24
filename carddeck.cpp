@@ -20,8 +20,7 @@ unsigned int cardDeck::pullOut(void)
     unsigned int card;
     if(cards.size() == 0)
     {
-        std::string str = "Deck is empty";
-        throw str;
+        return 100;
     }
     std::srand(time(0));
     unsigned int randNum = 0 + rand() % cards.size();
