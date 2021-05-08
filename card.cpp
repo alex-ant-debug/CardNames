@@ -1,8 +1,8 @@
 #include "card.h"
 
-std::string Card::ranks [] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-std::string Card::imageSuits[] = {"\x05", "\x06", "\x04", "\x03"};
-std::string Card::suits[] = {"Clubs", "Spades", "Diamonds", "Hearts"};
+const std::string Card::ranks [] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+const std::string Card::imageSuits[] = {"\x05", "\x06", "\x04", "\x03"};
+const std::string Card::suits[] = {"Clubs", "Spades", "Diamonds", "Hearts"};
 
 Card::Card(){}
 

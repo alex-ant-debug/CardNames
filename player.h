@@ -21,8 +21,8 @@ public:
     void findBella(void);
     void printCards(void);
     void setSrategy(std::string str);
-    static std::string availableStrategy[3];
-    static std::string defaultStrategy;
+    const static std::string availableStrategy[3];
+    const static std::string defaultStrategy;
     void printStrategy(void);
     void cardDeletion(unsigned int card);
     unsigned int getRandomCard(std::vector <unsigned int> availableCards);

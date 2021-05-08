@@ -5,11 +5,11 @@
 #include <ctime>
 #include <algorithm>
 
+const std::string Player::availableStrategy[3] = {"min", "max", "random"};
+const std::string Player::defaultStrategy = "min";
 
-Player::Player()
-{
 
-}
+Player::Player(){}
 
 void Player::addCard(unsigned int numberOfCard)
 {
@@ -19,7 +19,6 @@ void Player::addCard(unsigned int numberOfCard)
 
 void Player::printCardsNumbers(void)
 {
-
     for(unsigned int i = 0; i < cards.size(); i++)
     {
         std::cout<<cards.at(i)<<" ";
@@ -149,9 +148,6 @@ void Player::printCards(void)
         Card(cards.at(i)).print();
     }
 }
-
-std::string Player::availableStrategy[3] = {"min", "max", "random"};
-std::string Player::defaultStrategy = "min";
 
 void Player::setSrategy(std::string strategy)
 {

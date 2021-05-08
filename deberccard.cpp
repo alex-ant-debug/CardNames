@@ -1,10 +1,10 @@
 #include "deberccard.h"
                                             //2, 3, 4, 5, 6, 7, 8, 9, 10, B,  Д,  К,  Т
-unsigned int DebercCard::numberRank[]      = {0, 1, 2, 3, 4, 5, 6, 11, 9, 12, 7,  8, 10};
-unsigned int DebercCard::debercRank[]      = {0, 1, 2, 3, 4, 5, 6, 7, 11,  8, 9, 10, 12};
+const unsigned int DebercCard::numberRank[]      = {0, 1, 2, 3, 4, 5, 6, 11, 9, 12, 7,  8, 10};
+const unsigned int DebercCard::debercRank[]      = {0, 1, 2, 3, 4, 5, 6, 7, 11,  8, 9, 10, 12};
                                             //2, 3, 4, 5, 6, 7, 8, 9, 10, B,  Д,  К,  Т
-unsigned int DebercCard::cardPoints[]      = {0, 0, 0, 0, 0, 0, 0, 0, 10, 2,  3,  4,  11};
-unsigned int DebercCard::cardPointsTrump[] = {0, 0, 0, 0, 0, 0, 0, 14,10, 20, 3,  4,  11};
+const unsigned int DebercCard::cardPoints[]      = {0, 0, 0, 0, 0, 0, 0, 0, 10, 2,  3,  4,  11};
+const unsigned int DebercCard::cardPointsTrump[] = {0, 0, 0, 0, 0, 0, 0, 14,10, 20, 3,  4,  11};
 
 DebercCard::DebercCard(){}
 

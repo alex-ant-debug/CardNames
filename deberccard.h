@@ -14,12 +14,11 @@ public:
                                          unsigned short trumpSuit);
     unsigned int getScore(unsigned short trumpSuit);
 
-    static unsigned int numberRank[13];
-    static unsigned int debercRank[13];
-    static unsigned int cardPoints[13];
-    static unsigned int cardPointsTrump[13];
-
 protected:
+    const static unsigned int numberRank[13];
+    const static unsigned int debercRank[13];
+    const static unsigned int cardPoints[13];
+    const static unsigned int cardPointsTrump[13];
 
 };
 

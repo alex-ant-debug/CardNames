@@ -9,6 +9,10 @@ std::map <unsigned int, std::string>  Game::kindCombinations = {{3,    "Tierce"}
                                                                 {4,    "Deberts"},
                                                                 {2,    "Bella"}};
 
+std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},
+                                                            {4,    50},
+                                                            {2,    30}};
+
 void Game::checkCountOfPlayers(unsigned int num)
 {
     unsigned int possibleNumberOfPlayers = (maxDeckSize - minRank*4)/numberOfCards;
@@ -413,7 +417,3 @@ int Game::getFinalPlayer(void)
     }
     return (maxPlayerScore >= finalScoreValue)? indexMaxPlayer: -1;
 }
-
-std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},
-                                                            {4,    50},
-                                                            {2,    30}};
