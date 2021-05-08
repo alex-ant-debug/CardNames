@@ -5,6 +5,9 @@
 #include <ctime>
 #include <map>
 
+std::map <unsigned int, std::string>  Game::kindCombinations = {{3,    "Tierce"},
+                                                                {4,    "Deberts"},
+                                                                {2,    "Bella"}};
 
 void Game::checkCountOfPlayers(unsigned int num)
 {
@@ -208,10 +211,6 @@ void Game::printScores(void)
     std::cout<<std::endl;
 }
 
-std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},
-                                                            {4,    50},
-                                                            {2,    30}};
-
 void Game::printTrumpCard(void)
 {
     std::cout<<"Trunp card = ";
@@ -414,3 +413,7 @@ int Game::getFinalPlayer(void)
     }
     return (maxPlayerScore >= finalScoreValue)? indexMaxPlayer: -1;
 }
+
+std::map <unsigned int, unsigned int>  Game::numberPoints = {{3,    20},
+                                                            {4,    50},
+                                                            {2,    30}};

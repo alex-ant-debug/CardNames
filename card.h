@@ -18,8 +18,8 @@ public:
     std::string getShortView(void);
     std::string getRankValue(void);
 
-    std::string ranks[13] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-    std::string imageSuits[4] = {"\x05", "\x06", "\x04", "\x03"};
+    static std::string ranks[13];
+    static std::string imageSuits[4];
 
 
 protected:
@@ -27,7 +27,7 @@ protected:
     static const unsigned int maxValue = 51;
     unsigned int suit_value;
     unsigned int rank_value;
-    std::string suits[4] = {"Clubs", "Spades", "Diamonds", "Hearts"};
+    static std::string suits[4];
 
 };
 

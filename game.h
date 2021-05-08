@@ -27,10 +27,7 @@ public:
     void play(void);
     void searchForWinner(void);
 
-    std::map <unsigned int, std::string>  kindCombinations = {{3,    "Tierce"},
-                                                              {4,    "Deberts"},
-                                                              {2,    "Bella"}};
-
+    static std::map <unsigned int, std::string>  kindCombinations;
     static std::map <unsigned int, unsigned int> numberPoints;
 
     std::vector <Player> players;
